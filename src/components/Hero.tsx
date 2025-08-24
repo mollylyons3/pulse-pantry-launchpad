@@ -170,7 +170,7 @@ const Hero = () => {
             {/* Follow Us button */}
             <div className="mt-12 text-center">
               <a
-                href="https://instagram.com/yourhandle"
+                href="https://instagram.com/pulsepantry"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 border-2 border-primary text-primary bg-background hover:bg-primary hover:text-primary-foreground px-6 py-3 rounded-lg font-medium transition-colors duration-200"
