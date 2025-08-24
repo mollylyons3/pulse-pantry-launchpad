@@ -1,40 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Pulse Pantry Design System - Clean and Modern */
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 216 10% 16%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 216 10% 16%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 216 10% 16%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Pulse Pantry brand green #8DB635 */
+    --primary: 80 55% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 80 55% 40%;
 
     --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary-foreground: 216 10% 16%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 80 55% 45%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 80 55% 45%;
 
     --radius: 0.5rem;
 
@@ -100,6 +102,24 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 focus:bg-primary/90 focus:ring-2 focus:ring-primary/20 px-6 py-3 rounded-lg font-medium transition-colors duration-200 focus:outline-none;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary bg-background hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground focus:ring-2 focus:ring-primary/20 px-6 py-3 rounded-lg font-medium transition-colors duration-200 focus:outline-none;
+  }
+
+  .input-field {
+    @apply border border-input bg-background px-4 py-3 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors duration-200 focus:outline-none;
   }
 }
