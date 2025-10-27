@@ -35,16 +35,20 @@ const WaitlistForm = () => {
     setErrorMessage('');
 
     try {
-      // Simulate API call for now - in production this would be a real endpoint
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // For now, just show success. In production, this would be:
-      // const response = await fetch('/api/join', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ email })
-      // });
-      
+      const response = await fetch('/api/join', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, honeypot })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setStatus('error');
+        setErrorMessage(data.error || 'Something went wrong. Please try again.');
+        return;
+      }
+
       setStatus('success');
       setEmail('');
     } catch (error) {
