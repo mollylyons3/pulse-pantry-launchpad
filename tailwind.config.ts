@@ -88,11 +88,43 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'checkmark': {
+					'0%': {
+						strokeDashoffset: '50'
+					},
+					'100%': {
+						strokeDashoffset: '0'
+					}
+				},
+				'circle': {
+					'0%': {
+						strokeDashoffset: '151'
+					},
+					'100%': {
+						strokeDashoffset: '0'
+					}
+				},
+				'scale-in': {
+					'0%': {
+						transform: 'scale(0)',
+						opacity: '0'
+					},
+					'50%': {
+						transform: 'scale(1.1)'
+					},
+					'100%': {
+						transform: 'scale(1)',
+						opacity: '1'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'checkmark': 'checkmark 0.5s ease-out 0.3s forwards',
+				'circle': 'circle 0.6s ease-out forwards',
+				'scale-in': 'scale-in 0.5s ease-out forwards'
 			}
 		}
 	},

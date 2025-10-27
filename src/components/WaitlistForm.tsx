@@ -1,15 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
 
 const WaitlistForm = () => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [honeypot, setHoneypot] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
+
+  // Show success modal and auto-close after 10 seconds
+  useEffect(() => {
+    if (status === 'success') {
+      setShowSuccessModal(true);
+      const timer = setTimeout(() => {
+        setShowSuccessModal(false);
+        setStatus('idle');
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [status]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,21 +77,8 @@ const WaitlistForm = () => {
     }
   };
 
-  if (status === 'success') {
-    return (
-      <div 
-        className="text-center py-4" 
-        role="status" 
-        aria-live="polite"
-      >
-        <p className="text-primary font-medium text-lg">
-          Thanks for joining the waitlist! We'll notify you once our products are ready for purchse!
-        </p>
-      </div>
-    );
-  }
-
   return (
+    <>
     <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="flex-1">
@@ -111,9 +118,9 @@ const WaitlistForm = () => {
       </div>
       
       {errorMessage && (
-        <p 
-          id="email-error" 
-          className="text-destructive text-sm mt-2" 
+        <p
+          id="email-error"
+          className="text-destructive text-sm mt-2"
           role="alert"
           aria-live="polite"
         >
@@ -121,6 +128,49 @@ const WaitlistForm = () => {
         </p>
       )}
     </form>
+
+    <Dialog open={showSuccessModal} onOpenChange={setShowSuccessModal}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader className="text-center items-center space-y-4">
+          <div className="mx-auto animate-scale-in">
+            <svg
+              className="w-20 h-20"
+              viewBox="0 0 52 52"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                className="animate-circle"
+                cx="26"
+                cy="26"
+                r="24"
+                fill="none"
+                stroke="hsl(var(--primary))"
+                strokeWidth="3"
+                strokeDasharray="151"
+                strokeDashoffset="151"
+              />
+              <path
+                className="animate-checkmark"
+                fill="none"
+                stroke="hsl(var(--primary))"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeDasharray="50"
+                strokeDashoffset="50"
+                d="M14 27l7 7 16-16"
+              />
+            </svg>
+          </div>
+          <DialogTitle className="text-2xl font-semibold">
+            Thank You!
+          </DialogTitle>
+          <DialogDescription className="text-base text-center">
+            Thanks for joining the waitlist! We'll notify you once our products are ready for purchase!
+          </DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+    </>
   );
 };
 
